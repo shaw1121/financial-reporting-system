@@ -12,6 +12,7 @@ import { HomeComponent } from './components/content/home/home.component';
 import { InfoListComponent } from './components/content/info-list/info-list.component';
 import { InvestManagementComponent } from './components/content/invest-management/invest-management.component';
 import { UserListComponent } from './components/content/user-list/user-list.component';
+import { BreadCrumbComponent } from './components/content/bread-crumb/bread-crumb.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserListComponent } from './components/content/user-list/user-list.comp
     HomeComponent,
     InfoListComponent,
     InvestManagementComponent,
-    UserListComponent
+    UserListComponent,
+    BreadCrumbComponent
   ],
   imports: [
     BrowserModule,

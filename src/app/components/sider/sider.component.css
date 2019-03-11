@@ -9,15 +9,14 @@
 }
 
 .sidebar_navText {
-    color: white
+    color: white;
 }
 
 #sidebar_navElements {
-    color: white;
+    color: #878d99;
     list-style: none;
     display: block;
     margin-top: 50px;
-    margin-left: 50px;
     min-height: 400px;
 }
 
@@ -34,3 +33,23 @@
     padding: .3em 0;
     border-radius: 4px;
 }
+
+.iconFrs {
+    /* color: white; */
+    color: #878d99;
+    margin: 20px 5px 20px 10px;
+}
+/* .iconFrs_home {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url(../../../assets/home-fill.png);
+    background-size: 18px 18px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin-right: 20px;
+}
+
+.iconFrs_home::before {
+    content: "\F007";
+} */
