@@ -21,7 +21,7 @@ const routes: Routes = [
     component: InfoListComponent,
   },
   {
-    path: 'fundsManegement',
+    path: 'fundsManagement',
     component: FundsManagementComponent
   },
   {

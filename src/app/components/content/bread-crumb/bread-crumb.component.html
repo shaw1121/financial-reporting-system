@@ -2,9 +2,11 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <span><i class="iconFrs_bar fa fa-bars fa-margin fa-fw aria-hidden='true'" (click)="toggleBar()"></i></span>
-      <a href="#">首页</a>
+      <a routerLink="/index">首页</a>
     </li>
-    <li class="breadcrumb-item"><a href="#">Library</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Data</li>
+    <li class="breadcrumb-item" *ngIf="userListCrumb"><a routerLink="/userList">用户列表</a></li>
+    <li class="breadcrumb-item" *ngIf="infolistCrumb"><a routerLink="/infoList">信息列表</a></li>
+    <li class="breadcrumb-item" *ngIf="fundsManageCrumb"><a routerLink="/fundsManagement">资金管理</a></li>
+    <!-- <li class="breadcrumb-item active" aria-current="page">投资管理</li> -->
   </ol>
 </nav>
