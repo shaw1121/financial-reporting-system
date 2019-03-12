@@ -1,3 +1,85 @@
 <p>
   funds-management works!
 </p>
+
+<!-- <h3>收入记账</h3> -->
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+  添加
+</button>
+
+<table class="table income_table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>创建时间</th>
+      <th>收入来源</th>
+      <th>金额</th>
+      <th>备注</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let income of getIncome()">
+      <td>{{income.id}}</td>
+      <td>{{income.createTime | date}}</td>
+      <td>{{income.source}}</td>
+      <td>{{income.amount}}</td>
+      <td>{{income.description}}</td>
+      <td>
+        <button type="button" class="operator_btn btn btn-warning btn-sm">
+          <!-- <i class="fa fa-edit fa-margin fa-fw"></i> -->
+          <span>编辑</span>
+        </button>
+        <button type="button" class="operator_btn btn btn-danger btn-sm">
+          <!-- <i class="fa fa-delete fa-margin fa-fw"></i> -->
+          <span>删除</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal start-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">添加收入信息</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="incomeForm" (ngSubmit)="onSubmitIncomeForm()" class="form-horizontal">
+            
+            <div class="formField">
+                <label for="source" class="income_label">
+                    收入来源
+                </label>
+                <input id="source" type="text" formControlName="incomeSource" class="formText" placeholder="">
+            </div>
+
+            <div class="formField">
+                <label for="amount" class="income_label">
+                    金额
+                </label>
+                <input id="amount" type="text" formControlName="incomeAmount" class="formText">
+            </div>
+
+            <div class="formField">
+                <label for="comment" class="income_label">
+                    备注
+                </label>
+                <input id="comment" type="text" formControlName="incomeComment" class="formText">
+            </div>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal over -->
