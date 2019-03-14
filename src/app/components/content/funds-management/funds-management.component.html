@@ -3,7 +3,8 @@
 </p>
 
 <!-- <h3>收入记账</h3> -->
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
+        (click)="clearModal()">
   添加
 </button>
 
@@ -21,17 +22,16 @@
   <tbody>
     <tr *ngFor="let income of getIncome()">
       <td>{{income.id}}</td>
-      <td>{{income.createTime | date}}</td>
+      <td>{{income.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       <td>{{income.source}}</td>
       <td>{{income.amount}}</td>
       <td>{{income.description}}</td>
       <td>
-        <button type="button" class="operator_btn btn btn-warning btn-sm">
-          <!-- <i class="fa fa-edit fa-margin fa-fw"></i> -->
+        <button type="button" class="operator_btn btn btn-warning btn-sm" (click)="editIncomeItem(income)"
+                data-toggle="modal" data-target="#myModal">
           <span>编辑</span>
         </button>
-        <button type="button" class="operator_btn btn btn-danger btn-sm">
-          <!-- <i class="fa fa-delete fa-margin fa-fw"></i> -->
+        <button type="button" class="operator_btn btn btn-danger btn-sm" (click)="deleteIncomeItem(income)">
           <span>删除</span>
         </button>
       </td>
@@ -55,14 +55,20 @@
                 <label for="source" class="income_label">
                     收入来源
                 </label>
-                <input id="source" type="text" formControlName="incomeSource" class="formText" placeholder="">
+                <input id="source" type="text" formControlName="incomeSource" class="formText" 
+                       placeholder="" required>
             </div>
 
             <div class="formField">
                 <label for="amount" class="income_label">
                     金额
                 </label>
-                <input id="amount" type="text" formControlName="incomeAmount" class="formText">
+                <input id="amount" type="text" formControlName="incomeAmount" class="formText"
+                       required>
+                <div [hidden]="incomeForm.controls.incomeAmount.valid || incomeForm.controls.incomeAmount.pristine"
+                     >
+                    请输入数字
+                </div>
             </div>
 
             <div class="formField">
@@ -76,8 +82,10 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <!-- <button type="button" class="btn btn-primary">保存</button> -->
+          <button type="button" class="btn btn-primary" (click)="addIncomeItem()" 
+                  [disabled]="!incomeForm.valid">提交</button>
         </div>
       </div>
     </div>
