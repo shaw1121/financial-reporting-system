@@ -1,3 +1,5 @@
+import { Income } from './../../../model/income';
+import { IncomeService } from './../../../service/income.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -8,60 +10,56 @@ declare var $: any;
   templateUrl: './funds-management.component.html',
   styleUrls: ['./funds-management.component.css']
 })
-export class FundsManagementComponent implements OnInit {
-  
-  constructor(private fb: FormBuilder) { }
+export class FundsManagementComponent {
+
+  editedIncome = {
+    id: 0,
+    createTime: Date.now(),
+    source: 'buy',
+    amount: 22,
+    description: 'hdhdh',
+    operation: "hdh"
+  };
+
+  incomeData;
+    
+  constructor(private fb: FormBuilder, private incomeService: IncomeService) {
+  }
 
   ngOnInit() {
-    // console.log(this.incomeForm.incomeAmount.valid);
+    this.getIncome();
   }
-  
-  incomeArr = [
-    {
-      id: 1,
-      createTime: Date.now(),
-      source: 'buy',
-      amount: 22,
-      description: 'hdhdh',
-      operation: "hdh"
-    },
-    {
-      id: 2,
-      createTime: Date.now(), // 数据需要持久化
-      source: 'buy',
-      amount: 22,
-      description: 'hdhdh',
-      operation: "hdh"
-    }
-  ]
 
   getIncome() {
-    return this.incomeArr;
+    this.incomeService.getIncome()
+        .subscribe(incomeData => {
+          console.log(incomeData);
+          this.incomeData = incomeData;
+        });
   }
 
   incomeForm = this.fb.group({
+    incomeId: [0],
     incomeSource: ['', [Validators.required]],
     incomeAmount: ['', [Validators.pattern('[0-9]*')]],
     incomeComment: ['']
   })
-
-  addIncomeItem() {
-    this.incomeArr.push({
-      id: 1,
-      createTime: Date.now(),
+  
+  submitAddedIncomeItem() {
+    this.incomeService.addIncome({
       source: this.incomeForm.value.incomeSource,
       amount: this.incomeForm.value.incomeAmount,
-      description: this.incomeForm.value.incomeComment,
-      operation: "hdh"
-    }
-    );
-    console.log(this.incomeForm.controls.incomeAmount.valid); // 获取表单组中某个元素的有效性
+      description: this.incomeForm.value.incomeComment
+    }).subscribe(income => {
+      this.incomeData.income.push(income);
+      console.log(this.incomeData);
+    })
+
+    // 获取表单组中某个元素的有效性
+    console.log(this.incomeForm.controls.incomeAmount.valid); 
 
     $('#myModal').modal('hide');
-  }
 
-  onSubmitIncomeForm() {
-    console.log("onsubmit");
   }
 
   editIncomeItem(income) {
@@ -70,12 +68,17 @@ export class FundsManagementComponent implements OnInit {
     this.incomeForm.controls.incomeComment.setValue(income.description);
   }
 
-  deleteIncomeItem(income) {
-    // todo
-    // this.incomeArr.filter((ele) => {
-    //   return ele.id != income.id;
-    // })
+  submitEditedIncomeItem(incomeForm) {
     
+    console.log(incomeForm); // undefined
+    let incomeArr = this.incomeData.data;
+    if (this.editedIncome == incomeArr[incomeForm.controls.incomeId.value]) {
+      this.incomeData.data = this.incomeData.data.splice(incomeForm.controls.incomeId.value, 1, this.editedIncome);
+      $('#editModal').modal('hide');
+
+    } else {
+      $('#editModal').modal('hide');
+    }
   }
 
   clearModal() {
@@ -84,4 +87,11 @@ export class FundsManagementComponent implements OnInit {
     this.incomeForm.controls.incomeComment.setValue('');
   }
 
+  deleteIncomeItem(income) {
+    // have bug
+    console.log(income);
+    this.incomeData = this.incomeData.income.filter(i => i !== income);
+    this.incomeService.deleteIncome({createTime: income.createTime})
+        .subscribe();
+  }
 }
