@@ -1,4 +1,3 @@
-import { Income } from './../../../model/income';
 import { IncomeService } from './../../../service/income.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,15 +11,6 @@ declare var $: any;
 })
 export class FundsManagementComponent {
 
-  editedIncome = {
-    id: 0,
-    createTime: Date.now(),
-    source: 'buy',
-    amount: 22,
-    description: 'hdhdh',
-    operation: "hdh"
-  };
-
   incomeData;
     
   constructor(private fb: FormBuilder, private incomeService: IncomeService) {
@@ -30,7 +20,7 @@ export class FundsManagementComponent {
     this.getIncome();
   }
 
-  getIncome() {
+  getIncome(): void {
     this.incomeService.getIncome()
         .subscribe(incomeData => {
           console.log(incomeData);
@@ -45,8 +35,10 @@ export class FundsManagementComponent {
     incomeComment: ['']
   })
   
-  submitAddedIncomeItem() {
+  submitAddedIncomeItem(): void {
+
     this.incomeService.addIncome({
+      createTime: Date.now(),
       source: this.incomeForm.value.incomeSource,
       amount: this.incomeForm.value.incomeAmount,
       description: this.incomeForm.value.incomeComment
@@ -59,26 +51,38 @@ export class FundsManagementComponent {
     console.log(this.incomeForm.controls.incomeAmount.valid); 
 
     $('#myModal').modal('hide');
-
   }
 
   editIncomeItem(income) {
     this.incomeForm.controls.incomeSource.setValue(income.source);
     this.incomeForm.controls.incomeAmount.setValue(income.amount);
     this.incomeForm.controls.incomeComment.setValue(income.description);
+    this.incomeForm.controls.incomeId.setValue(income.id);
   }
 
   submitEditedIncomeItem(incomeForm) {
     
     console.log(incomeForm); // undefined
-    let incomeArr = this.incomeData.data;
-    if (this.editedIncome == incomeArr[incomeForm.controls.incomeId.value]) {
-      this.incomeData.data = this.incomeData.data.splice(incomeForm.controls.incomeId.value, 1, this.editedIncome);
-      $('#editModal').modal('hide');
+    let incomeObj = incomeForm.value;
 
-    } else {
-      $('#editModal').modal('hide');
+    let updateData = {
+      source: incomeObj.incomeSource,
+      amount: incomeObj.incomeAmount,
+      description: incomeObj.incomeComment,
+      id: incomeObj.incomeId
     }
+
+    this.incomeService.editIncome(updateData)
+        .subscribe(updatedIncome => {
+
+          const index = updatedIncome ? this.incomeData.income.findIndex(i => i.id == updatedIncome['id'] ) : -1;
+
+          if (index > -1) {
+            this.incomeData.income[index] = updatedIncome;
+          }
+        })
+
+    $('#editModal').modal('hide');
   }
 
   clearModal() {
@@ -87,11 +91,17 @@ export class FundsManagementComponent {
     this.incomeForm.controls.incomeComment.setValue('');
   }
 
-  deleteIncomeItem(income) {
-    // have bug
-    console.log(income);
-    this.incomeData = this.incomeData.income.filter(i => i !== income);
+  deleteIncomeItem(income): void {
+
+    let index = this.incomeData.income.indexOf(income);
+    this.incomeData.income.splice(index, 1);
+
+    // have bug use filter method
+    // this.incomeData = this.incomeData.income.filter(i => i !== income);
+
     this.incomeService.deleteIncome({createTime: income.createTime})
-        .subscribe();
+        .subscribe( data => {
+          console.log(`delete successfully ${data}`);
+        });
   }
 }

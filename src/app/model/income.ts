@@ -1,6 +1,5 @@
 export class Income {
-    id: number;
-    createTime: Date;
+    createTime: number;
     source: string;
     amount: number;
     description: string;
