@@ -4,6 +4,7 @@ import { Income } from '../model/income';
 import { Observable, throwError } from 'rxjs'; 
 import { HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { IncomeData } from '../model/IncomeData';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -36,13 +37,13 @@ export class IncomeService {
 
   constructor(private http: HttpClient) { }
 
-  getIncome() {
+  getIncome(): Observable<IncomeData> {
     // return this.http.get('https://www.easy-mock.com/mock/5c93528a933c7c3297e514d4/example/income');
-    return this.http.get('http://localhost:3000/income');
+    return this.http.get<IncomeData>('http://localhost:3000/income');
   }
 
-  addIncome(income) {
-    return this.http.post('http://localhost:3000/income', income, httpOptions)
+  addIncome(income: Income): Observable<Income> {
+    return this.http.post<Income>('http://localhost:3000/income', income, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
@@ -50,5 +51,9 @@ export class IncomeService {
 
   deleteIncome(createTime) {
     return this.http.post('http://localhost:3000/delete', createTime, httpOptions)
+  }
+
+  editIncome(income) {
+    return this.http.put('http://localhost:3000/income', income, httpOptions);
   }
 }

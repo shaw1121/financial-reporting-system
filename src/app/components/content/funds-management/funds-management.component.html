@@ -1,9 +1,6 @@
-<p>
-  funds-management works!
-</p>
 
 <!-- <h3>收入记账</h3> -->
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
+<button type="button" class="btn btn-primary btn-sm addbtn" data-toggle="modal" data-target="#myModal"
         (click)="clearModal()" data-whatever="add">
   添加
 </button>
@@ -90,7 +87,7 @@
       </div>
     </div>
 </div>
-  <!-- Modal over -->
+<!--add Modal over -->
 
 <!--edit Modal start-->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -131,6 +128,13 @@
               <input id="comment" type="text" formControlName="incomeComment" class="formText">
           </div>
 
+          <div class="formField">
+            <label for="incomeId" class="income_label">
+                序号
+            </label>
+            <input id="incomeId" formControlName="incomeId" class="formText" disabled="disabled">
+          </div>  
+
         </form>
 
       </div>
@@ -143,4 +147,6 @@
     </div>
   </div>
 </div>
-<!-- Modal over -->
+<!--edit Modal over -->
+
+<!-- 删除成功/失败 时的提示框 -->
