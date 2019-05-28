@@ -12,6 +12,7 @@ declare var $: any;
 export class FundsManagementComponent {
 
   incomeData;
+  incomeTotal;
     
   constructor(private fb: FormBuilder, private incomeService: IncomeService) {
   }
@@ -20,11 +21,21 @@ export class FundsManagementComponent {
     this.getIncome();
   }
 
+  // ngDoCheck, ngAfterContentInit
+  // ngAfterContentChecked(): 每当 Angular 完成被投影组件内容的变更检测之后调用。ngAfterContentInit() 和每次 ngDoCheck() 之后调用
+  ngAfterContentChecked()  {
+    // 放在 ngOninit 中不行，报 income 没有 reduce 方法的错误
+    this.incomeTotal = this.incomeData.income.reduce((acc, cur, currentIndex, array) => 
+      acc + cur.amount, 0
+    );
+    console.log(this.incomeTotal);
+  }
+
   getIncome(): void {
     this.incomeService.getIncome()
-        .subscribe(incomeData => {
-          console.log(incomeData);
-          this.incomeData = incomeData;
+        .subscribe(data => {
+          console.log(data);
+          this.incomeData = data;
         });
   }
 
@@ -104,4 +115,5 @@ export class FundsManagementComponent {
           console.log(`delete successfully ${data}`);
         });
   }
+  
 }

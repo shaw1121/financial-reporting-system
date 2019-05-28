@@ -1,6 +1,20 @@
+.income_detail, .income_dashboard {
+    margin-left: 220px;
+    margin-top: 70px;
+}
+
+.income_dashboard {
+    display: inline;
+}
+
 table.income_table {
     display: block;
     width: 100%;
+    left: 400px;
+}
+
+tr {
+    text-align: center;
 }
 
 .operator_btn {
@@ -45,4 +59,16 @@ form {
     position: relative;
     left: 550px;
     bottom: 8px;
+}
+
+.income_card {
+    border: 1.2px solid #e3e3e3!important;
+    text-align: center;
+    height: 100px;
+    width: 300px;
+    background-color: #fff;
+    position: absolute;
+    left: 220px;
+    padding: 20px;
+    margin: 10px;
 }

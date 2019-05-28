@@ -2,3 +2,8 @@
     width: 100%;
     height: 100%;
 }
+
+#layout_content {
+    margin-left: 200px;
+    top: 300px;
+}
