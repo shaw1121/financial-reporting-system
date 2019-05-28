@@ -12,4 +12,76 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
   }
 
+  userList = [
+    {
+     name: 'shaw',
+     location: 'chengdu',
+     contact: 18585852599 
+    },
+    {
+      name: 'shaw',
+      location: 'chengdu',
+      contact: 18585852599 
+    },
+    {
+      name: 'shaw',
+      location: 'chengdu',
+      contact: 18585852599 
+    },
+    {
+      name: 'shaw',
+      location: 'chengdu',
+      contact: 18585852599 
+    },
+    {
+      name: 'shaw',
+      location: 'chengdu',
+      contact: 18585852599 
+    },
+    {
+      name: 'shaw',
+      location: 'chengdu',
+      contact: 18585852599 
+    },
+    {
+      name: 'shaw',
+      location: 'chengdu',
+      contact: 18585852599 
+    },
+    {
+      name: 'shaw',
+      location: 'chengdu',
+      contact: 18585852599 
+     },
+     {
+       name: 'shaw',
+       location: 'chengdu',
+       contact: 18585852599 
+     },
+     {
+       name: 'shaw',
+       location: 'chengdu',
+       contact: 18585852599 
+     },
+     {
+       name: 'shaw',
+       location: 'chengdu',
+       contact: 18585852599 
+     },
+     {
+       name: 'shaw',
+       location: 'chengdu',
+       contact: 18585852599 
+     },
+     {
+       name: 'shaw',
+       location: 'chengdu',
+       contact: 18585852599 
+     },
+     {
+       name: 'shaw',
+       location: 'chengdu',
+       contact: 18585852599 
+     }
+  ]
 }

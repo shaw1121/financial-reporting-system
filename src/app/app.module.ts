@@ -16,12 +16,14 @@ import { InfoListComponent } from './components/content/info-list/info-list.comp
 import { InvestManagementComponent } from './components/content/invest-management/invest-management.component';
 import { UserListComponent } from './components/content/user-list/user-list.component';
 import { BreadCrumbComponent } from './components/content/bread-crumb/bread-crumb.component';
+import { CardComponent } from './components/content/user-list/card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SiderComponent,
+    CardComponent,
     ContentComponent,
     FundsManagementComponent,
     FundsDataComponent,

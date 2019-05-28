@@ -4,6 +4,9 @@ header {
     display: block;
     height: 60px;
     background: url(../../../assets/header.jpg);
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 }
 
 h1 {
@@ -13,4 +16,23 @@ h1 {
     position: relative;
     color: white;
     position: relative;
+}
+
+ul.user_logout {
+    text-align: right;
+}
+
+a:hover {
+    color: #f1f1f1;
+    text-decoration: none;
+}
+
+ul li {
+    list-style-type: none;
+    display: inline;
+    padding: 5px 10px;
+}
+
+a {
+    color: black;
 }

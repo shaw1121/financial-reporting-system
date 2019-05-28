@@ -3,3 +3,10 @@
     margin-right: 10px;
     cursor: pointer;
 }
+
+.bread-crumb {
+    top: 60px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
