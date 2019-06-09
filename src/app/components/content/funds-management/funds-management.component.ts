@@ -1,6 +1,6 @@
 import { IncomeService } from './../../../service/income.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 
 declare var $: any;
 
@@ -39,12 +39,18 @@ export class FundsManagementComponent {
         });
   }
 
+  validatePattern = /^(\-|\+)?\d+(\.\d+)?$/;
+
   incomeForm = this.fb.group({
     incomeId: [0],
     incomeSource: ['', [Validators.required]],
-    incomeAmount: ['', [Validators.pattern('[0-9]*')]],
-    incomeComment: ['']
+    incomeAmount: ['', [
+      Validators.pattern(this.validatePattern)
+    ]],
+    incomeComment: ['', [incomeCommentValidate(/null/g)]]
   })
+
+
   
   submitAddedIncomeItem(): void {
 
@@ -116,4 +122,12 @@ export class FundsManagementComponent {
         });
   }
   
+}
+
+// 禁止某个正则表达式匹配的内容
+export function incomeCommentValidate(nameRe: RegExp): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? {'forbiddenName': {value: control.value}} : null;
+  };
 }

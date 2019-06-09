@@ -41,10 +41,12 @@
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+
           <div class="modal-header">
             <h4 class="modal-title" id="myModalLabel">添加收入信息</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
+
           <div class="modal-body">
 
             <form [formGroup]="incomeForm" (ngSubmit)="onSubmitIncomeForm()" class="form-horizontal">
@@ -62,9 +64,9 @@
                       金额
                   </label>
                   <input id="amount" type="text" formControlName="incomeAmount" class="formText"
-                        required>
+                        placeholder="请输入数字" required>
                   <div [hidden]="incomeForm.controls.incomeAmount.valid || incomeForm.controls.incomeAmount.pristine"
-                      >
+                       >
                       请输入数字
                   </div>
               </div>
@@ -73,18 +75,21 @@
                   <label for="comment" class="income_label">
                       备注
                   </label>
-                  <input id="comment" type="text" formControlName="incomeComment" class="formText">
+                  <input id="comment" type="text" formControlName="incomeComment" class="formText" placeholder="不可为null">
               </div>
 
             </form>
 
           </div>
+
+          <!-- button放在表单内，才有回车即提交的效果 -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <!-- <button type="button" class="btn btn-primary">保存</button> -->
-            <button type="button" class="btn btn-primary" (click)="submitAddedIncomeItem()" 
-                    [disabled]="!incomeForm.valid">提交</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <!-- <button type="button" class="btn btn-primary">保存</button> -->
+              <button type="submit" class="btn btn-primary" (click)="submitAddedIncomeItem()" 
+                      [disabled]="!incomeForm.valid">提交</button>
           </div>
+
         </div>
       </div>
   </div>
