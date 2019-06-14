@@ -1,0 +1,62 @@
+<div class="login">
+
+  <div class="login_card">
+
+    <div class="login_header" id="tabs_div">
+      <ul class="nav nav-pills" id="tabs_ul">
+        <li class="active "><a (click)="showLogin()">账号密码登录</a></li>
+        <li><a (click)="showRegister()">注册</a></li>
+      </ul>
+    </div>
+
+    <div *ngIf="isUser">
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmitLoginForm()">
+
+        <input id="account" type="text" formControlName="account" class="formText" placeholder="请输入账号" required>
+
+        <input id="password" type="password" formControlName="password" class="formText" placeholder="请输入密码" required>
+
+        <!-- 账号<input type="text"> 密码<input type="text"> -->
+
+        <div class="login_btn">
+            <button type="submit" (click)="submitLoginForm()">登录</button>
+        </div>
+        
+      </form>
+
+    </div>
+
+    <div *ngIf="!isUser">
+      <!-- <form>
+        <label for="user_input"><span class="txt-impt">*</span> 用户名</label>
+        <input type="text" name="" id="user_input">
+    
+        <label for="psw_input"><span class="txt-impt">*</span>密码</label>
+        <input type="text" name="" id="psw_input">
+    
+        <label for="cfm_psw"><span class="txt-impt">*</span>确认密码</label>
+        <input type="text" name="" id="cfm_psw">
+    
+        <button type="submit">立即注册</button> -->
+        <!-- </form> -->
+        <form [formGroup]="registerForm">
+
+          <input id="account" type="text" formControlName="account" class="formText" placeholder="注册账号" required>
+  
+          <input id="password" type="password" formControlName="password" class="formText" placeholder="密码" required>
+
+          <input id="password" type="password" formControlName="password" class="formText" placeholder="确认密码" required>
+  
+          <!-- 账号<input type="text"> 密码<input type="text"> -->
+  
+          <div class="login_btn">
+              <button type="submit" (click)="submitRegisterForm()">立即注册</button>
+          </div>
+          
+        </form>
+
+    </div>
+
+  </div>
+</div>

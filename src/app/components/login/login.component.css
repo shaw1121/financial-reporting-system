@@ -1,0 +1,64 @@
+.login {
+    margin-left: 300px;
+    margin-top: 100px;
+    font-family: PingFangSC-Medium,Microsoft YaHei,verdana,Simsun,STXihei;
+    position: relative;
+}
+
+.login_header {
+    height: 30px;
+    text-align: left;
+    margin: 15px;
+}
+
+.login_card {
+    border: 2px solid gray;
+    width: 400px;
+    height: 400px;
+    background-color: turquoise;
+    box-shadow: 5px;
+    border-radius: 10px;
+}
+
+form {
+    top: 40px;
+}
+
+form input {
+    margin: 10px;
+    padding: 5px;
+    display: block;
+    position: relative;
+    left: 20px;
+    width: 330px;
+}
+
+.login_btn {
+    margin: 15px;
+}
+
+.login_btn button {
+    width: 330px;
+    height: 35px;
+    padding: 5px;
+    margin: 15px;
+    border-radius: 5px;
+}
+
+li:nth-child(1) {
+    margin-left: 60px;
+}
+
+li:nth-child(2) {
+    margin-left: 80px;
+}
+
+a {
+    cursor: pointer;
+}
+
+li:hover {
+    /* background-color: white; */
+    /* text-decoration: underline; */
+    border-bottom: 1px solid gray;
+}

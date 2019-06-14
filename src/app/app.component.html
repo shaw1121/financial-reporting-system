@@ -1,9 +1,19 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div id="container">
-  <frs-header></frs-header>
-
-  <frs-sider></frs-sider>
   
-  <frs-content></frs-content>
-  <router-outlet></router-outlet>
+  <div *ngIf='login; else loginPage'>
+    <frs-header></frs-header>
+
+    <frs-sider></frs-sider>
+    
+    <frs-content></frs-content>
+    <router-outlet></router-outlet>
+  </div>
+
+  <ng-template #loginPage>
+    <div class="loginBgp">
+        <frs-login></frs-login>
+    </div>
+  </ng-template>
+
 </div>

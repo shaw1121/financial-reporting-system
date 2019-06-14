@@ -6,6 +6,7 @@ import { InfoListComponent } from './components/content/info-list/info-list.comp
 import { InvestManagementComponent } from './components/content/invest-management/invest-management.component';
 import { FundsDataComponent } from './components/content/funds-data/funds-data.component';
 import { FundsManagementComponent } from './components/content/funds-management/funds-management.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,11 @@ const routes: Routes = [
     path: 'userList',
     component: UserListComponent,
   },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+
   {
     path: 'infoList',
     component: InfoListComponent,
@@ -34,9 +40,9 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'index',
+    redirectTo: 'login',
     pathMatch: 'full'
-  },
+  }
 ];
 
 @NgModule({
