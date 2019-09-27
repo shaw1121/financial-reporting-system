@@ -19,6 +19,8 @@ import { BreadCrumbComponent } from './components/content/bread-crumb/bread-crum
 import { CardComponent } from './components/content/user-list/card/card.component';
 import { LoginComponent } from './components/login/login.component';
 
+import { ElModule } from 'element-angular'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,8 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ElModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

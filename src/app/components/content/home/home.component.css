@@ -2,3 +2,19 @@
     margin-left: 200px;
     margin-top: 70px;
 }
+
+.netAsset_card {
+    border: 1.2px solid #e3e3e3!important;
+    text-align: center;
+    height: 100px;
+    width: 300px;
+    background-color: #fff;
+    position: relative;
+    left: 20px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.asset {
+    display: inline-block;
+}
