@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import * as $ from 'jquery';
@@ -17,6 +18,11 @@ import { InvestManagementComponent } from './components/content/invest-managemen
 import { UserListComponent } from './components/content/user-list/user-list.component';
 import { BreadCrumbComponent } from './components/content/bread-crumb/bread-crumb.component';
 import { CardComponent } from './components/content/user-list/card/card.component';
+import { LoginComponent } from './components/login/login.component';
+import { TableModule } from 'primeng/table';
+import { DropdownModule} from 'primeng/primeng';
+
+import { ElModule } from 'element-angular'
 
 @NgModule({
   declarations: [
@@ -31,13 +37,18 @@ import { CardComponent } from './components/content/user-list/card/card.componen
     InfoListComponent,
     InvestManagementComponent,
     UserListComponent,
-    BreadCrumbComponent
+    BreadCrumbComponent,
+    LoginComponent,
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ElModule.forRoot(),
+    TableModule,
+    // DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

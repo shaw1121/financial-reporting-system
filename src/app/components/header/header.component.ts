@@ -12,4 +12,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  user = {
+    name: sessionStorage.getItem('user')
+  }
+
 }

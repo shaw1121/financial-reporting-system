@@ -3,10 +3,11 @@
   <!-- <h3>收入记账</h3> -->
   <button type="button" class="btn btn-primary btn-sm addbtn" data-toggle="modal" data-target="#myModal"
           (click)="clearModal()" data-whatever="add">
-    添加
+    添加收入项
   </button>
 
-  <table class="table income_table table-striped table-hover">
+  <!-- table without primeng -->
+  <!-- <table class="table income_table table-striped table-hover">
     <thead>
       <tr>
         <th>序号</th>
@@ -18,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let income of incomeData?.income">
+      <tr *ngFor="let income of incomeData">
         <td>{{income.id}}</td>
         <td>{{income.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
         <td>{{income.source}}</td>
@@ -35,16 +36,50 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+  <p-table [value]="incomeData" class="table income_table table-striped table-hover"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+          <th>序号</th>
+          <th>创建时间</th>
+          <th>收入来源</th>
+          <th>金额</th>
+          <th>备注</th>
+          <th>操作</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-income>
+      <tr>
+        <td>{{income.id}}</td>
+        <td>{{income.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{income.source}}</td>
+        <td>{{income.amount}}</td>
+        <td>{{income.description}}</td>
+        <td>
+          <button type="button" class="operator_btn btn btn-warning btn-sm" (click)="editIncomeItem(income)"
+                  data-toggle="modal" data-target="#editModal" data-whatever="edit">
+            <span>编辑</span>
+          </button>
+          <button type="button" class="operator_btn btn btn-danger btn-sm" (click)="deleteIncomeItem(income)">
+            <span>删除</span>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
   <!--add Modal start-->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+
           <div class="modal-header">
             <h4 class="modal-title" id="myModalLabel">添加收入信息</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
+
           <div class="modal-body">
 
             <form [formGroup]="incomeForm" (ngSubmit)="onSubmitIncomeForm()" class="form-horizontal">
@@ -62,9 +97,9 @@
                       金额
                   </label>
                   <input id="amount" type="text" formControlName="incomeAmount" class="formText"
-                        required>
+                        placeholder="请输入数字" required>
                   <div [hidden]="incomeForm.controls.incomeAmount.valid || incomeForm.controls.incomeAmount.pristine"
-                      >
+                       >
                       请输入数字
                   </div>
               </div>
@@ -79,12 +114,15 @@
             </form>
 
           </div>
+
+          <!-- button放在表单内，才有回车即提交的效果 -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <!-- <button type="button" class="btn btn-primary">保存</button> -->
-            <button type="button" class="btn btn-primary" (click)="submitAddedIncomeItem()" 
-                    [disabled]="!incomeForm.valid">提交</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <!-- <button type="button" class="btn btn-primary">保存</button> -->
+              <button type="submit" class="btn btn-primary" (click)="submitAddedIncomeItem()" 
+                      [disabled]="!incomeForm.valid">提交</button>
           </div>
+
         </div>
       </div>
   </div>

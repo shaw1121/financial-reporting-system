@@ -12,4 +12,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  netAsset: number = 1000000; // 计算得到：总资产 - 总负债
+
+
+
 }
