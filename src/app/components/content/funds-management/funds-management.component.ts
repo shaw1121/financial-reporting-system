@@ -25,17 +25,18 @@ export class FundsManagementComponent {
   // ngAfterContentChecked(): 每当 Angular 完成被投影组件内容的变更检测之后调用。ngAfterContentInit() 和每次 ngDoCheck() 之后调用
   ngAfterContentChecked()  {
     // 放在 ngOninit 中不行，报 income 没有 reduce 方法的错误
-    this.incomeTotal = this.incomeData.income.reduce((acc, cur, currentIndex, array) => 
-      acc + cur.amount, 0
-    );
-    console.log(this.incomeTotal);
+    if (this.incomeData) {
+      this.incomeTotal = this.incomeData.reduce((acc, cur, currentIndex, array) => 
+        acc + cur.amount, 0
+      );
+    }
+
   }
 
   getIncome(): void {
     this.incomeService.getIncome()
         .subscribe(data => {
-          console.log(data);
-          this.incomeData = data;
+          this.incomeData = data.income;
         });
   }
 
@@ -50,8 +51,6 @@ export class FundsManagementComponent {
     incomeComment: ['', [incomeCommentValidate(/null/g)]]
   })
 
-
-  
   submitAddedIncomeItem(): void {
 
     this.incomeService.addIncome({
@@ -60,8 +59,7 @@ export class FundsManagementComponent {
       amount: this.incomeForm.value.incomeAmount,
       description: this.incomeForm.value.incomeComment
     }).subscribe(income => {
-      this.incomeData.income.push(income);
-      console.log(this.incomeData);
+      this.incomeData.push(income);
     })
 
     // 获取表单组中某个元素的有效性
@@ -78,8 +76,6 @@ export class FundsManagementComponent {
   }
 
   submitEditedIncomeItem(incomeForm) {
-    
-    console.log(incomeForm); // undefined
     let incomeObj = incomeForm.value;
 
     let updateData = {
@@ -92,10 +88,10 @@ export class FundsManagementComponent {
     this.incomeService.editIncome(updateData)
         .subscribe(updatedIncome => {
 
-          const index = updatedIncome ? this.incomeData.income.findIndex(i => i.id == updatedIncome['id'] ) : -1;
+          const index = updatedIncome ? this.incomeData.findIndex(i => i.id == updatedIncome['id'] ) : -1;
 
           if (index > -1) {
-            this.incomeData.income[index] = updatedIncome;
+            this.incomeData[index] = updatedIncome;
           }
         })
 
@@ -110,18 +106,20 @@ export class FundsManagementComponent {
 
   deleteIncomeItem(income): void {
 
-    let index = this.incomeData.income.indexOf(income);
-    this.incomeData.income.splice(index, 1);
-
-    // have bug use filter method
-    // this.incomeData = this.incomeData.income.filter(i => i !== income);
-
-    this.incomeService.deleteIncome({createTime: income.createTime})
-        .subscribe( data => {
-          console.log(`delete successfully ${data}`);
-        });
-  }
+    let confirmMsg = confirm('确定要删除？');
+    if (confirmMsg === true) {
+      let index = this.incomeData.indexOf(income);
+      this.incomeData.splice(index, 1);
   
+      // have bug use filter method
+      // this.incomeData = this.incomeData.filter(i => i !== income);
+  
+      this.incomeService.deleteIncome({createTime: income.createTime})
+          .subscribe( data => {
+            console.log(`delete successfully ${data}`);
+          });
+    }
+  }
 }
 
 // 禁止某个正则表达式匹配的内容

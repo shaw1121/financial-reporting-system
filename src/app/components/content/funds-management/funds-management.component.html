@@ -6,7 +6,8 @@
     添加收入项
   </button>
 
-  <table class="table income_table table-striped table-hover">
+  <!-- table without primeng -->
+  <!-- <table class="table income_table table-striped table-hover">
     <thead>
       <tr>
         <th>序号</th>
@@ -18,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let income of incomeData?.income">
+      <tr *ngFor="let income of incomeData">
         <td>{{income.id}}</td>
         <td>{{income.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
         <td>{{income.source}}</td>
@@ -35,7 +36,39 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+  <p-table [value]="incomeData" class="table income_table table-striped table-hover"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+          <th>序号</th>
+          <th>创建时间</th>
+          <th>收入来源</th>
+          <th>金额</th>
+          <th>备注</th>
+          <th>操作</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-income>
+      <tr>
+        <td>{{income.id}}</td>
+        <td>{{income.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{income.source}}</td>
+        <td>{{income.amount}}</td>
+        <td>{{income.description}}</td>
+        <td>
+          <button type="button" class="operator_btn btn btn-warning btn-sm" (click)="editIncomeItem(income)"
+                  data-toggle="modal" data-target="#editModal" data-whatever="edit">
+            <span>编辑</span>
+          </button>
+          <button type="button" class="operator_btn btn btn-danger btn-sm" (click)="deleteIncomeItem(income)">
+            <span>删除</span>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
   <!--add Modal start-->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -75,7 +108,7 @@
                   <label for="comment" class="income_label">
                       备注
                   </label>
-                  <input id="comment" type="text" formControlName="incomeComment" class="formText" placeholder="不可为null">
+                  <input id="comment" type="text" formControlName="incomeComment" class="formText">
               </div>
 
             </form>
